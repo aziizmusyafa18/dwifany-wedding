@@ -1,0 +1,192 @@
+:root {
+  --bs-body-bg: #fffff0; /* ivory-white untuk background body */
+  --sogan-brown: #3e2723;
+  --golden-yellow: #ffb74d; /* Warna emas yang lebih soft untuk UI */
+  --bs-body-color: var(--sogan-brown);
+}
+
+.font-serif-jawa {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.font-sans-jawa {
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  font-family: "Lato", sans-serif; /* Menggunakan Lato sebagai default */
+}
+
+/* -- HALAMAN SAMPUL (COVER) -- */
+#cover {
+  height: 100vh; /* Mengisi seluruh tinggi layar */
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5); /* Efek overlay gelap */
+}
+
+/* -- KOMPONEN KUSTOM -- */
+.btn-jawa {
+  background-color: var(--golden-yellow);
+  color: var(--sogan-brown);
+  font-weight: bold;
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  border: none;
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn-jawa:hover {
+  transform: scale(1.05);
+  background-color: var(--golden-yellow);
+  color: var(--sogan-brown);
+}
+
+.card-jawa {
+  border: 1px solid var(--golden-yellow);
+  border-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card-jawa .card-header {
+  background-color: var(--sogan-brown);
+  color: var(--golden-yellow);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  border-bottom: 1px solid var(--golden-yellow);
+  padding: 1rem;
+}
+
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.list-group-item .icon {
+  color: var(--sogan-brown);
+  font-size: 1.5rem;
+  margin-right: 15px;
+}
+
+.couple-photo {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border: 4px solid var(--golden-yellow);
+  padding: 8px;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* -- BUKU TAMU & DINDING UCAPAN (WISH WALL) -- */
+.wish-wall-container {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.wish-card {
+  position: relative; /* Diperlukan untuk posisi absolut tombol hapus */
+  background-color: var(--bs-body-bg);
+  border: 1px solid #eee;
+  border-left: 5px solid var(--golden-yellow);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.wish-card .card-name {
+  font-weight: bold;
+  color: var(--sogan-brown);
+  margin-bottom: 5px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+}
+
+.wish-card .card-text {
+  font-style: italic;
+  color: #555;
+}
+
+.wish-card .card-status {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.25em 0.6em;
+  border-radius: 20px;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.badge-hadir {
+  color: var(--sogan-brown);
+  background-color: var(--golden-yellow);
+  border: 1px solid var(--sogan-brown);
+}
+
+.badge-tidak-hadir {
+  color: #6c757d;
+  background-color: #e9ecef;
+  border: 1px solid #dee2e6;
+}
+
+.wish-card .btn-delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.4rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 50px;
+  opacity: 0.2; /* Dibuat lebih transparan awalnya */
+  transition: opacity 0.3s;
+}
+
+.wish-card:hover .btn-delete {
+  opacity: 1; /* Muncul jelas saat card di-hover */
+}
+
+/* -- KARTU HADIAH (GIFT CARD) -- */
+.gift-card {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gift-logo {
+  max-height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* -- FOOTER -- */
+.site-footer {
+  background-color: var(--sogan-brown);
+  color: rgba(255, 255, 240, 0.7);
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.site-footer a.footer-hashtag {
+  color: rgba(255, 255, 240, 0.9);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.site-footer a.footer-hashtag:hover {
+  color: var(--golden-yellow);
+}
