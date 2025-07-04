@@ -3,14 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Undangan Pernikahan | Raka & Wulan</title>
+    <title>DwiFany | Wedding</title>
 
-    <link rel="icon" href="path/to/your/favicon.ico" type="image/x-icon" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -22,17 +20,20 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lato&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="font-sans-jawa">
+    <div id="music-controller">
+      <i class="bi bi-music-note-beamed"></i>
+    </div>
     <audio id="gamelan-music" loop>
-      <source src="path/to/your/gamelan-music.mp3" type="audio/mpeg" />
+      <source src="audio/kusumawijaya.mp3" type="audio/mpeg" />
     </audio>
 
     <div
       id="cover"
       class="d-flex flex-column justify-content-center align-items-center text-center text-white p-4"
-      style="background-image: url('path/to/your/prewed-photo.jpg')"
     >
       <h2
         class="font-serif-jawa"
@@ -41,11 +42,14 @@
         THE WEDDING OF
       </h2>
 
-      <div class="my-4" style="font-size: 4rem; color: var(--golden-yellow)">
-        &#x1F33A;
-      </div>
+      <img
+        src="img/arjunasrikandi.png"
+        alt="arjunasrikandi"
+        class="wayang-animated"
+        id="wayang-couple"
+      />
 
-      <h1 class="display-1 font-serif-jawa">Raka & Wulan</h1>
+      <h1 class="display-1 font-serif-jawa">DWI & FANY</h1>
 
       <button id="open-invitation" class="btn btn-jawa mt-5">
         Buka Undangan
@@ -61,7 +65,7 @@
       >
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-md-9 text-center text-white" data-aos="fade-up">
+            <div class="col-md-9 text-center text-white">
               <i
                 class="bi bi-quote"
                 style="font-size: 3rem; color: var(--golden-yellow)"
@@ -88,11 +92,22 @@
       <!-- quotes -->
 
       <!-- couple -->
-      <section id="mempelai" class="py-5">
+      <section id="mempelai" class="py-5 couple">
         <div class="container">
           <div class="text-center mb-5">
-            <h2 class="display-5 font-serif-jawa">Mempelai Ingkang Bagya</h2>
-            <p class="lead">
+            <h2
+              class="display-5 font-serif-jawa"
+              data-aos="zoom-out"
+              data-aos-duration="1000"
+              data-aos-offset="200"
+            >
+              Mempelai Ingkang Bagya
+            </h2>
+            <p
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-offset="200"
+            >
               Maha suci Allah SWT yang telah menciptakan makhluk-Nya
               berpasang-pasangan.
             </p>
@@ -101,20 +116,47 @@
           <div
             class="row align-items-center justify-content-center text-center"
           >
-            <div class="col-md-5">
+            <div class="col-md-5 mt-5 mt-md-0">
               <img
-                src="https://via.placeholder.com/250"
-                alt="Mempelai Pria"
-                class="img-fluid rounded-circle couple-photo mb-3"
+                src="img/male.png"
+                alt="Wayang Arjuna"
+                class="wayang-photo"
+                data-aos="flip-right"
+                data-aos-duration="1000"
+                data-aos-offset="200"
               />
 
-              <h3 class="display-6 font-serif-jawa text-sogan-brown">
-                Raka Wibisono
+              <h3
+                class="display-6 font-serif-jawa text-sogan-brown mt-3"
+                data-aos="fade-left"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+              >
+                Dwi Aprilianto, S.Pd
               </h3>
-              <p class="mt-3">Putra pertama dari:</p>
-              <p>
-                <strong>Bapak H. Soleh Wijoyo</strong><br />&<br /><strong
-                  >Ibu Hj. Aminah Rahayu</strong
+              <a
+                href="https://www.instagram.com/hafidishlah?igsh=MTVjOTJlZTFld3k3YQ=="
+                data-aos="zoom-out"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+              >
+                @hafidishlah <i class="bi bi-instagram"></i>
+              </a>
+              <p
+                class="mt-3"
+                data-aos="fade-left"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+              >
+                Putra kedua dari:
+              </p>
+              <p
+                data-aos="fade-left"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+              >
+                <strong>Bapak Muhadi</strong><br />&<br /><strong
+                  >Ibu Siti Mutholi'ah</strong
                 >
               </p>
             </div>
@@ -123,24 +165,54 @@
               <span
                 class="display-1 font-serif-jawa"
                 style="color: var(--golden-yellow)"
+                data-aos="zoom-in"
+                data-aos-duration="1000"
+                data-aos-offset="200"
                 >&</span
               >
             </div>
 
-            <div class="col-md-5 mt-5 mt-md-0">
+            <div class="col-md-5">
               <img
-                src="https://via.placeholder.com/250"
-                alt="Mempelai Wanita"
-                class="img-fluid rounded-circle couple-photo mb-3"
+                src="img/female.png"
+                alt="Wayang Srikandi"
+                class="wayang-photo"
+                data-aos="flip-left"
+                data-aos-duration="1000"
+                data-aos-offset="200"
               />
 
-              <h3 class="display-6 font-serif-jawa text-sogan-brown">
-                Wulan Lestari
+              <h3
+                class="display-6 font-serif-jawa text-sogan-brown mt-3"
+                data-aos="fade-right"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+              >
+                Midiafany Putri Melati, S.Pd
               </h3>
-              <p class="mt-3">Putri kedua dari:</p>
-              <p>
-                <strong>Bapak Drs. Budi Santoso</strong><br />&<br /><strong
-                  >Ibu Retno Asih, S.Pd.</strong
+              <a
+                href="https://www.instagram.com/hafidishlah?igsh=MTVjOTJlZTFld3k3YQ=="
+                data-aos="zoom-out"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+              >
+                @hafidishlah <i class="bi bi-instagram"></i>
+              </a>
+              <p
+                class="mt-3"
+                data-aos="fade-right"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+              >
+                Putri pertama dari:
+              </p>
+              <p
+                data-aos="fade-right"
+                data-aos-duration="1000"
+                data-aos-offset="200"
+              >
+                <strong>Bapak Daryanto</strong><br />&<br /><strong
+                  >Ibu Titik Mutmainah</strong
                 >
               </p>
             </div>
@@ -150,81 +222,57 @@
       <!-- couple -->
 
       <!-- info -->
-      <section id="acara" class="py-5">
+      <section
+        id="acara"
+        class="py-5"
+        data-aos="zoom-in"
+        data-aos-duration="1000"
+      >
         <div class="container">
           <div class="text-center mb-5">
-            <h2 class="display-5 font-serif-jawa">Wanci Ingkang Dinanti</h2>
-            <p class="lead">
+            <h2
+              class="display-5 font-serif-jawa"
+              data-aos="slide-up"
+              data-aos-duration="1000"
+            >
+              Wanci Ingkang Dinanti
+            </h2>
+            <p class="lead" data-aos="fade-right" data-aos-duration="1200">
               Sebuah kehormatan dan kebahagiaan bagi kami apabila
               Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
             </p>
           </div>
 
-          <div class="row justify-content-center g-4">
+          <div class="row justify-content-center g-4 bounce">
             <div class="col-lg-5">
               <div class="card card-jawa text-center">
                 <div class="card-header">
-                  <h3 class="font-serif-jawa mb-0">Akad Nikah</h3>
+                  <h3 class="font-serif-jawa mb-0">Akad Nikah & Resepsi</h3>
                 </div>
                 <div class="card-body p-4">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex align-items-center">
                       <i class="bi bi-calendar-heart icon"></i>
                       <span>
-                        <strong>Sabtu, 14 September 2025</strong>
+                        <strong>Rabu, 29 Oktober 2025</strong>
                       </span>
                     </li>
                     <li class="list-group-item d-flex align-items-center">
                       <i class="bi bi-clock icon"></i>
-                      <span>Pukul 09:00 WIB - Selesai</span>
+                      <span>Pukul 08:00 WIB - Selesai</span>
                     </li>
                     <li class="list-group-item d-flex align-items-center">
                       <i class="bi bi-geo-alt-fill icon"></i>
                       <span>
-                        <strong>Masjid Nasional Al-Akbar</strong><br />
-                        Jl. Masjid Al-Akbar Timur No.1, Pagesangan, Surabaya
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="card-footer bg-transparent border-0 pb-4">
-                  <a href="#" class="btn btn-outline-dark">
-                    <i class="bi bi-calendar-plus"></i> Tambah ke Kalender
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-5">
-              <div class="card card-jawa text-center">
-                <div class="card-header">
-                  <h3 class="font-serif-jawa mb-0">Resepsi</h3>
-                </div>
-                <div class="card-body p-4">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex align-items-center">
-                      <i class="bi bi-calendar-heart icon"></i>
-                      <span>
-                        <strong>Sabtu, 14 September 2025</strong>
-                      </span>
-                    </li>
-                    <li class="list-group-item d-flex align-items-center">
-                      <i class="bi bi-clock icon"></i>
-                      <span>Pukul 18:30 WIB - 21:00 WIB</span>
-                    </li>
-                    <li class="list-group-item d-flex align-items-center">
-                      <i class="bi bi-geo-alt-fill icon"></i>
-                      <span>
-                        <strong>Grand Ballroom, The Westin Surabaya</strong
-                        ><br />
-                        Pakuwon Mall, Jl. Puncak Indah, Lontar, Surabaya
+                        <strong>Mushola Al - Ikhlas</strong><br />
+                        Putatsari Kec. Grobogan Kabupaten Grobogan Jawa Tengah
                       </span>
                     </li>
                   </ul>
                 </div>
                 <div class="card-footer bg-transparent border-0 pb-4">
                   <a
-                    href="https://maps.app.goo.gl/abcdef12345"
+                    href="https://maps.app.goo.gl/c5xzDehRjfE2okM46"
                     target="_blank"
                     class="btn btn-outline-dark"
                   >
@@ -238,8 +286,58 @@
       </section>
       <!-- info -->
 
+      <!-- countdown -->
+      <section
+        id="countdown"
+        class="py-5"
+        style="background-color: var(--sogan-brown)"
+      >
+        <div class="container text-center text-white">
+          <h2
+            class="font-serif-jawa display-5 mb-4"
+            data-aos="fade-left"
+            data-aos-duration="1200"
+          >
+            Menghitung Hari
+          </h2>
+
+          <div
+            id="timer-container"
+            class="d-flex justify-content-center gap-3 gap-md-4 bounce"
+          >
+            <div class="timer-box">
+              <span id="days">00</span>
+              <small>Hari</small>
+            </div>
+            <div class="timer-box">
+              <span id="hours">00</span>
+              <small>Jam</small>
+            </div>
+            <div class="timer-box">
+              <span id="minutes">00</span>
+              <small>Menit</small>
+            </div>
+            <div class="timer-box">
+              <span id="seconds">00</span>
+              <small>Detik</small>
+            </div>
+          </div>
+
+          <div id="countdown-expired" class="d-none">
+            <h3 class="font-serif-jawa">Waktu yang dinanti telah tiba!</h3>
+          </div>
+        </div>
+      </section>
+      <!-- countdown -->
+
       <!-- rsvp -->
-      <section id="rsvp" class="py-5" style="background-color: #f8f9fa">
+      <section
+        id="rsvp"
+        class="py-5"
+        style="background-color: #f8f9fa"
+        data-aos="zoom-out"
+        data-aos-duration="1000"
+      >
         <div class="container">
           <div class="text-center mb-4" data-aos="fade-up">
             <h2 class="display-5 font-serif-jawa">Buku Tamu & RSVP</h2>
@@ -383,7 +481,12 @@
       <!-- rsvp modal -->
 
       <!-- gift -->
-      <section id="gift" class="py-5">
+      <section
+        id="gift"
+        class="py-5"
+        data-aos="slide-left"
+        data-aos-duration="1000"
+      >
         <div class="container">
           <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="display-5 font-serif-jawa">Tanda Kasih</h2>
@@ -398,22 +501,22 @@
             <div class="col-md-5" data-aos="fade-up" data-aos-delay="100">
               <div class="gift-card text-center">
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/2560px-Bank_Central_Asia.svg.png"
-                  alt="Logo Bank BCA"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bank_Syariah_Indonesia.svg/1280px-Bank_Syariah_Indonesia.svg.png"
+                  alt="Logo Bank BSI"
                   class="gift-logo"
                 />
-                <p class="mt-3">Bank Central Asia (BCA)</p>
-                <h4 class="font-monospace">1234 5678 90</h4>
-                <p>a.n. Raka Wibisono</p>
+                <p class="mt-3">Bank Syariah Indonesia (BSI)</p>
+
+                <h4 class="font-monospace">8586567940</h4>
+                <p>a.n. Dwi Aprilianto</p>
                 <button
                   class="btn btn-outline-dark btn-copy"
-                  data-copy="1234567890"
+                  data-copy="8586567940"
                 >
                   <i class="bi bi-clipboard me-2"></i> Salin Nomor Rekening
                 </button>
               </div>
             </div>
-
             <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
               <div class="gift-card text-center">
                 <img
@@ -422,12 +525,12 @@
                   class="gift-logo"
                 />
                 <p class="mt-3">DANA</p>
-                <h4 class="font-monospace">0812 3456 7890</h4>
-                <p>a.n. Wulan Lestari</p>
+                <h4 class="font-monospace">0857 0017 9109</h4>
+                <p>a.n. Midiafany Putri Melati</p>
                 <div class="d-grid gap-2 d-sm-block">
                   <button
                     class="btn btn-outline-dark btn-copy"
-                    data-copy="081234567890"
+                    data-copy="0857 0017 9109"
                   >
                     <i class="bi bi-clipboard me-2"></i> Salin Nomor DANA
                   </button>
@@ -448,7 +551,12 @@
       <!-- gift -->
 
       <!-- thanks -->
-      <section id="closing" class="py-5">
+      <section
+        id="closing"
+        class="py-5"
+        data-aos="fade-in"
+        data-aos-duration="1000"
+      >
         <div class="container text-center" data-aos="fade-up">
           <h2
             class="display-4 font-serif-jawa"
@@ -466,7 +574,7 @@
 
           <div class="mt-5">
             <p class="mb-1">Kami yang berbahagia,</p>
-            <h1 class="display-3 font-serif-jawa">Raka & Wulan</h1>
+            <h1 class="display-3 font-serif-jawa">Dwi & Fany</h1>
           </div>
 
           <hr
@@ -476,12 +584,12 @@
 
           <div class="row justify-content-center">
             <div class="col-md-5">
-              <p class="mb-0"><strong>Kel. Bapak H. Soleh Wijoyo</strong></p>
-              <p><strong>& Ibu Hj. Aminah Rahayu</strong></p>
+              <p class="mb-0"><strong>Kel. Bapak Muhadi</strong></p>
+              <p><strong>& Ibu Siti Mutholi'ah</strong></p>
             </div>
             <div class="col-md-5">
-              <p class="mb-0"><strong>Kel. Bapak Drs. Budi Santoso</strong></p>
-              <p><strong>& Ibu Retno Asih, S.Pd.</strong></p>
+              <p class="mb-0"><strong>Kel. Bapak Daryanto</strong></p>
+              <p><strong>& Ibu Titik Mutmainah</strong></p>
             </div>
           </div>
         </div>
@@ -497,16 +605,32 @@
             target="_blank"
             class="footer-hashtag"
           >
-            <i class="bi bi-instagram me-1"></i> #RakaWulanBahagia
+            <i class="bi bi-instagram me-1"></i> #DwiFanyWedding
           </a>
         </div>
-        <p class="mb-1">Crafted with ❤️ by the Couple & an AI Assistant</p>
-        <p class="mb-0">&copy; 2025 Raka & Wulan. All Rights Reserved.</p>
+        <p class="mb-1">Crafted with ❤️ by <a href="">aziizmusyafa18</a></p>
+        <p class="mb-0">&copy; 2025 Dwi & Fany. All Rights Reserved.</p>
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        offset: 200,
+        delay: 200,
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script>
+      gsap.from("py-5", {
+        duration: 1,
+        y: -100,
+        opacity: 0,
+        ease: "bounce",
+      });
+    </script>
     <script src="js/main.js"></script>
   </body>
 </html>

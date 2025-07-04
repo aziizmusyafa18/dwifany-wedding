@@ -12,6 +12,10 @@
 .font-sans-jawa {
   font-family: "Lato", sans-serif;
 }
+body,
+html {
+  overflow-x: hidden;
+}
 
 body {
   font-family: "Lato", sans-serif; /* Menggunakan Lato sebagai default */
@@ -71,14 +75,17 @@ body {
   margin-right: 15px;
 }
 
-.couple-photo {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  border: 4px solid var(--golden-yellow);
-  padding: 8px;
-  background-color: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.wayang-photo {
+  max-height: 350px;
+  width: auto;
+  filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
+
+  /* Properti baru untuk bingkai emas */
+  background-color: white; /* Memberi 'alas' putih di belakang gambar wayang */
+  padding: 10px; /* Jarak antara foto dan bingkai */
+  border: 4px solid var(--golden-yellow); /* Garis bingkai emas */
+  border-radius: 50rem; /* Membuat sudut bingkai lebih lembut */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan halus di luar bingkai */
 }
 
 /* -- BUKU TAMU & DINDING UCAPAN (WISH WALL) -- */
@@ -153,6 +160,16 @@ body {
   opacity: 1; /* Muncul jelas saat card di-hover */
 }
 
+.couple a {
+  padding: 5px;
+  font-size: 12px;
+  width: auto;
+  background-color: var(--sogan-brown);
+  border-radius: 40px;
+  color: white;
+  margin-top: -1rem;
+  text-decoration: none;
+}
 /* -- KARTU HADIAH (GIFT CARD) -- */
 .gift-card {
   background-color: #fff;
@@ -189,4 +206,95 @@ body {
 
 .site-footer a.footer-hashtag:hover {
   color: var(--golden-yellow);
+}
+
+/* -- COUNTDOWN TIMER -- */
+.timer-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--golden-yellow);
+  border-radius: 15px;
+  padding: 1rem;
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.timer-box span {
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: "Cormorant Garamond", serif;
+  color: var(--golden-yellow);
+}
+
+.timer-box small {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 240, 0.8);
+  text-transform: uppercase;
+}
+
+/* -- PENGONTROL MUSIK -- */
+#music-controller {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--sogan-brown);
+  color: var(--golden-yellow);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  transition: transform 0.3s;
+}
+
+#music-controller:hover {
+  transform: scale(1.1);
+}
+
+/* Animasi berputar */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#music-controller.playing {
+  animation: spin 4s linear infinite;
+}
+
+/* -- ANIMASI WAYANG -- */
+#wayang-couple {
+  /* Filter untuk memberikan efek bayangan halus seperti wayang kulit */
+  filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.3));
+  /* Atur titik tumpu animasi di bagian tengah bawah gambar */
+  transform-origin: bottom center;
+}
+
+.wayang-animated {
+  /* Menerapkan animasi bernama 'sway' */
+  animation: sway 5s ease-in-out infinite;
+  width: 19rem;
+  height: 20rem;
+}
+
+/* Mendefinisikan gerakan animasi 'sway' */
+@keyframes sway {
+  0% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(-2deg);
+  }
 }
