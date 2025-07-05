@@ -142,28 +142,85 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // Logika untuk tombol Salin (Copy)
+  // ================================================================
+  // GANTI SEMUA KODE COPY LAMA (forEach + 2 fungsi) DENGAN INI
+  // ================================================================
+
+  // 5a. Logika untuk tombol Salin (Copy) - VERSI TAHAN BANTING
   copyButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-      const textToCopy = e.currentTarget.dataset.copy;
-      navigator.clipboard
-        .writeText(textToCopy)
-        .then(() => {
-          const originalText = e.currentTarget.innerHTML;
-          e.currentTarget.innerHTML = "Berhasil Disalin!";
-          e.currentTarget.disabled = true;
-          setTimeout(() => {
-            e.currentTarget.innerHTML = originalText;
-            e.currentTarget.disabled = false;
-          }, 2000);
-        })
-        .catch((err) => {
-          console.error("Gagal menyalin teks: ", err);
-          alert("Gagal menyalin nomor.");
-        });
+      const buttonElement = e.currentTarget; // Simpan referensi tombol di awal
+      const textToCopy = buttonElement.dataset.copy;
+
+      // Fungsi untuk menampilkan pesan sukses, sekarang ada di dalam lingkup listener
+      const showSuccess = () => {
+        const originalText = buttonElement.innerHTML;
+        buttonElement.innerHTML = "Berhasil Disalin!";
+        buttonElement.disabled = true;
+        setTimeout(() => {
+          buttonElement.innerHTML = originalText;
+          buttonElement.disabled = false;
+        }, 2000);
+      };
+
+      // Metode Modern (Prioritas Utama)
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard
+          .writeText(textToCopy)
+          .then(showSuccess)
+          .catch((err) => {
+            console.warn("Metode modern gagal, mencoba metode klasik:", err);
+            // Jika gagal, coba Metode Klasik
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            textArea.style.position = "absolute";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+              if (document.execCommand("copy")) {
+                showSuccess(); // Panggil fungsi sukses
+              } else {
+                throw new Error("execCommand returned false.");
+              }
+            } catch (e) {
+              console.error("Metode klasik juga gagal:", e);
+              alert(
+                "Maaf, fitur salin otomatis gagal di browser Anda. Mohon salin secara manual."
+              );
+            } finally {
+              document.body.removeChild(textArea);
+            }
+          });
+      } else {
+        // Jika browser tidak punya Clipboard API, langsung ke metode klasik
+        console.warn(
+          "Clipboard API tidak tersedia, menggunakan metode klasik."
+        );
+        // (Kode metode klasik diulang di sini untuk kasus ini)
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        textArea.style.position = "absolute";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          if (document.execCommand("copy")) {
+            showSuccess();
+          } else {
+            throw new Error("execCommand returned false.");
+          }
+        } catch (e) {
+          console.error("Metode klasik gagal:", e);
+          alert(
+            "Maaf, fitur salin otomatis gagal di browser Anda. Mohon salin secara manual."
+          );
+        } finally {
+          document.body.removeChild(textArea);
+        }
+      }
     });
   });
-
   // Logika untuk form RSVP
   if (form) {
     konfirmasiSelect.addEventListener("change", function () {
