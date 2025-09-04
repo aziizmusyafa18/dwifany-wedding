@@ -31,8 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const copyButtons = document.querySelectorAll(".btn-copy");
   const countdownContainer = document.getElementById("timer-container");
   const countdownExpired = document.getElementById("countdown-expired");
-  const animatedElements = document.querySelectorAll(".anim-child");
+  const footer = document.getElementById("main-footer");
+  // Sembunyikan saat cover tampil
+  if (musicController) musicController.style.display = "none";
+  if (footer) footer.style.display = "none";
 
+  
   // --- BAGIAN 2: FUNGSI PEMBANTU (HELPER FUNCTIONS) ---
   function addWishToWall(nama, ucapan, konfirmasi, rowNumber) {
     if (!wishWall) return;
@@ -46,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="wish-card" id="row-${rowNumber}">
                 <button class="btn-delete" data-row="${rowNumber}" title="Hapus ucapan ini">&times;</button>
                 <div class="card-name">${nama} ${statusBadge}</div>
-                <p class="card-text">"${ucapan}"</p>
+                <p class="card-text">\"${ucapan}\"</p>
             </div>`;
     wishWall.insertAdjacentHTML("afterbegin", newWishHTML);
   }
@@ -63,38 +67,37 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- BAGIAN 3: INISIALISASI & LOGIKA UTAMA ---
-
-  // Logika untuk animasi on scroll kustom
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-  animatedElements.forEach((element) => {
-    observer.observe(element);
-  });
-
   // Logika untuk membuka sampul (cover)
   if (openButton) {
     openButton.addEventListener("click", () => {
+      // 1. Mainkan musik & update ikon
       if (music) {
         music.play().catch((e) => console.error("Gagal memutar musik:", e));
         isMusicPlaying = true;
         updateMusicControllerVisuals();
       }
+
+      // 2. Animasi fade out untuk cover
       cover.style.transition = "opacity 1s ease-out, transform 1s ease-out";
       cover.style.opacity = "0";
       cover.style.transform = "scale(1.2)";
+
+      // 3. Setelah animasi selesai, tampilkan konten utama
       setTimeout(() => {
         cover.classList.add("d-none");
         if (content) content.classList.remove("d-none");
-      }, 1000);
+        
+        // 4. Tambahkan class ke body untuk padding navbar
+        document.body.classList.add("content-visible");
+
+        // 5. Tampilkan music controller & footer
+        if (musicController) musicController.style.display = "flex";
+        if (footer) footer.style.display = "block";
+        
+        // 6. Jalankan animasi GSAP
+        setupGsapAnimations();
+
+      }, 1000); // Samakan dengan durasi transisi
     });
   }
 
@@ -142,9 +145,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // ================================================================
+  // ================================================= ================
   // GANTI SEMUA KODE COPY LAMA (forEach + 2 fungsi) DENGAN INI
-  // ================================================================
+  // ================================================= ================
 
   // 5a. Logika untuk tombol Salin (Copy) - VERSI TAHAN BANTING
   copyButtons.forEach((button) => {
@@ -320,5 +323,137 @@ document.addEventListener("DOMContentLoaded", function () {
         if (countdownExpired) countdownExpired.classList.remove("d-none");
       }
     }, 1000);
+  }
+
+  // --- BAGIAN 4: LOGIKA UNTUK NAVBAR ACTIVE LINK HIGHLIGHTING ---
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".navbar .nav-link");
+
+  if (sections.length > 0 && navLinks.length > 0) {
+    sections.forEach(section => {
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top center",
+            end: "bottom center",
+            onToggle: self => {
+                if (self.isActive) {
+                    const sectionId = section.getAttribute("id");
+                    navLinks.forEach(link => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("href") === `#${sectionId}`) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            }
+        });
+    });
+  }
+  
+  // --- BAGIAN 5: ANIMASI GSAP & SCROLLTRIGGER ---
+  function setupGsapAnimations() {
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+      // Fungsi untuk animasi smooth scroll
+      const navLinks = document.querySelectorAll('.navbar a[href^="#"]');
+      navLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href');
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                  gsap.to(window, {
+                      duration: 1.5,
+                      scrollTo: {
+                          y: targetElement,
+                          offsetY: 20 // Offset agar tidak terlalu mepet
+                      },
+                      ease: "power3.inOut"
+                  });
+              }
+          });
+      });
+
+      // Animasi default untuk elemen teks umum
+      const textElements = gsap.utils.toArray('#quote p, #quote footer, #mempelai h2, #mempelai p, #acara h2, #acara p, #rsvp h2, #rsvp p, #gift h2, #gift p, #closing h2, #closing p, #closing h1');
+      textElements.forEach(el => {
+          gsap.from(el, {
+              opacity: 0,
+              y: 40,
+              duration: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                  trigger: el,
+                  start: 'top 90%',
+                  toggleActions: 'play none none none',
+              }
+          });
+      });
+
+      // Animasi khusus untuk #quote
+      gsap.from("#quote .bi-quote", {
+          scale: 0,
+          rotation: 360,
+          duration: 1.5,
+          ease: "elastic.out(1, 0.5)",
+          scrollTrigger: "#quote"
+      });
+
+      // Animasi khusus untuk #mempelai
+      gsap.from(".mempelai-pria", { xPercent: -50, opacity: 0, duration: 1, ease: "power2.out", scrollTrigger: { trigger: ".mempelai-pria", start: "top 80%" } });
+      gsap.from(".mempelai-wanita", { xPercent: 50, opacity: 0, duration: 1, ease: "power2.out", scrollTrigger: { trigger: ".mempelai-wanita", start: "top 80%" } });
+      gsap.from("#mempelai .wayang-photo", {
+          scale: 0.5,
+          duration: 1.5,
+          ease: "elastic.out(1, 0.75)",
+          stagger: 0.5,
+          scrollTrigger: { trigger: "#mempelai .wayang-photo", start: "top 80%" }
+      });
+      gsap.from("#mempelai .d-none.d-md-block span", {
+          scale: 0,
+          duration: 1,
+          ease: "back.out(1.7)",
+          scrollTrigger: { trigger: "#mempelai .d-none.d-md-block span", start: "top 80%" }
+      });
+
+      // Animasi untuk kartu #acara
+      gsap.from("#acara .card", {
+          scale: 0.8,
+          opacity: 0,
+          duration: 1,
+          ease: "back.out(1.7)",
+          scrollTrigger: { trigger: "#acara .card", start: "top 80%" }
+      });
+
+      // Animasi untuk countdown
+      gsap.from(".timer-box", {
+          y: 100,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: { trigger: ".timer-box", start: "top 90%" }
+      });
+
+      // Animasi untuk #gift cards
+      gsap.from("#gift .gift-card", {
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.3,
+          ease: "power2.out",
+          scrollTrigger: {
+              trigger: "#gift .gift-card",
+              start: "top 85%"
+          }
+      });
+      
+      // Animasi untuk #closing
+      gsap.from("#closing h2", {
+          scale: 0.5,
+          duration: 1,
+          ease: "back.out(1.7)",
+          scrollTrigger: "#closing"
+      });
   }
 }); // --- AKHIR DARI DOMContentLoaded ---
