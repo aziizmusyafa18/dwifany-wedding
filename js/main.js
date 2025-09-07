@@ -36,21 +36,20 @@ document.addEventListener("DOMContentLoaded", function () {
   if (musicController) musicController.style.display = "none";
   if (footer) footer.style.display = "none";
 
-  
   // --- BAGIAN 2: FUNGSI PEMBANTU (HELPER FUNCTIONS) ---
   function addWishToWall(nama, ucapan, konfirmasi, rowNumber) {
     if (!wishWall) return;
     let statusBadge = "";
     if (konfirmasi === "Akan Hadir") {
-      statusBadge = `<span class="card-status badge-hadir">Akan Hadir</span>`;
+      statusBadge = `<span class=\"card-status badge-hadir\">Akan Hadir</span>`;
     } else if (konfirmasi === "Tidak Dapat Hadir") {
-      statusBadge = `<span class="card-status badge-tidak-hadir">Tidak Dapat Hadir</span>`;
+      statusBadge = `<span class=\"card-status badge-tidak-hadir\">Tidak Dapat Hadir</span>`;
     }
     const newWishHTML = `
-            <div class="wish-card" id="row-${rowNumber}">
-                <button class="btn-delete" data-row="${rowNumber}" title="Hapus ucapan ini">&times;</button>
-                <div class="card-name">${nama} ${statusBadge}</div>
-                <p class="card-text">\"${ucapan}\"</p>
+            <div class=\"wish-card\" id=\"row-${rowNumber}\">
+                <button class=\"btn-delete\" data-row=\"${rowNumber}\" title=\"Hapus ucapan ini\" >&times;</button>
+                <div class=\"card-name\">${nama} ${statusBadge}</div>
+                <p class=\"card-text\">\"${ucapan}\"</p>
             </div>`;
     wishWall.insertAdjacentHTML("afterbegin", newWishHTML);
   }
@@ -86,18 +85,17 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         cover.classList.add("d-none");
         if (content) content.classList.remove("d-none");
-        
+
         // 4. Tambahkan class ke body untuk padding navbar
         document.body.classList.add("content-visible");
 
         // 5. Tampilkan music controller & footer
         if (musicController) musicController.style.display = "flex";
         if (footer) footer.style.display = "block";
-        
+
         // 6. Jalankan animasi GSAP
         setupGsapAnimations();
-
-      }, 1000); // Samakan dengan durasi transisi
+      }, 1500); // Samakan dengan durasi transisi
     });
   }
 
@@ -145,85 +143,27 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // ================================================= ================
-  // GANTI SEMUA KODE COPY LAMA (forEach + 2 fungsi) DENGAN INI
-  // ================================================= ================
-
-  // 5a. Logika untuk tombol Salin (Copy) - VERSI TAHAN BANTING
+  // Logika untuk tombol Salin (Copy)
   copyButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-      const buttonElement = e.currentTarget; // Simpan referensi tombol di awal
-      const textToCopy = buttonElement.dataset.copy;
-
-      // Fungsi untuk menampilkan pesan sukses, sekarang ada di dalam lingkup listener
-      const showSuccess = () => {
-        const originalText = buttonElement.innerHTML;
-        buttonElement.innerHTML = "Berhasil Disalin!";
-        buttonElement.disabled = true;
-        setTimeout(() => {
-          buttonElement.innerHTML = originalText;
-          buttonElement.disabled = false;
-        }, 2000);
-      };
-
-      // Metode Modern (Prioritas Utama)
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard
-          .writeText(textToCopy)
-          .then(showSuccess)
-          .catch((err) => {
-            console.warn("Metode modern gagal, mencoba metode klasik:", err);
-            // Jika gagal, coba Metode Klasik
-            const textArea = document.createElement("textarea");
-            textArea.value = textToCopy;
-            textArea.style.position = "absolute";
-            textArea.style.left = "-9999px";
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-              if (document.execCommand("copy")) {
-                showSuccess(); // Panggil fungsi sukses
-              } else {
-                throw new Error("execCommand returned false.");
-              }
-            } catch (e) {
-              console.error("Metode klasik juga gagal:", e);
-              alert(
-                "Maaf, fitur salin otomatis gagal di browser Anda. Mohon salin secara manual."
-              );
-            } finally {
-              document.body.removeChild(textArea);
-            }
-          });
-      } else {
-        // Jika browser tidak punya Clipboard API, langsung ke metode klasik
-        console.warn(
-          "Clipboard API tidak tersedia, menggunakan metode klasik."
-        );
-        // (Kode metode klasik diulang di sini untuk kasus ini)
-        const textArea = document.createElement("textarea");
-        textArea.value = textToCopy;
-        textArea.style.position = "absolute";
-        textArea.style.left = "-9999px";
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-          if (document.execCommand("copy")) {
-            showSuccess();
-          } else {
-            throw new Error("execCommand returned false.");
-          }
-        } catch (e) {
-          console.error("Metode klasik gagal:", e);
-          alert(
-            "Maaf, fitur salin otomatis gagal di browser Anda. Mohon salin secara manual."
-          );
-        } finally {
-          document.body.removeChild(textArea);
-        }
-      }
+      const textToCopy = e.currentTarget.dataset.copy;
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          const originalText = e.currentTarget.innerHTML;
+          e.currentTarget.innerHTML = "Berhasil Disalin!";
+          e.currentTarget.disabled = true;
+          setTimeout(() => {
+            e.currentTarget.innerHTML = originalText;
+            e.currentTarget.disabled = false;
+          }, 2000);
+        })
+        .catch((err) => {
+          console.error("Gagal menyalin: ", err);
+        });
     });
   });
+
   // Logika untuk form RSVP
   if (form) {
     konfirmasiSelect.addEventListener("change", function () {
@@ -330,130 +270,245 @@ document.addEventListener("DOMContentLoaded", function () {
   const navLinks = document.querySelectorAll(".navbar .nav-link");
 
   if (sections.length > 0 && navLinks.length > 0) {
-    sections.forEach(section => {
-        ScrollTrigger.create({
-            trigger: section,
-            start: "top center",
-            end: "bottom center",
-            onToggle: self => {
-                if (self.isActive) {
-                    const sectionId = section.getAttribute("id");
-                    navLinks.forEach(link => {
-                        link.classList.remove("active");
-                        if (link.getAttribute("href") === `#${sectionId}`) {
-                            link.classList.add("active");
-                        }
-                    });
-                }
-            }
-        });
+    sections.forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top center",
+        end: "bottom center",
+        onToggle: (self) => {
+          if (self.isActive) {
+            const sectionId = section.getAttribute("id");
+            navLinks.forEach((link) => {
+              link.classList.remove("active");
+              if (link.getAttribute("href") === `#${sectionId}`)
+                link.classList.add("active");
+            });
+          }
+        },
+      });
     });
   }
-  
-  // --- BAGIAN 5: ANIMASI GSAP & SCROLLTRIGGER ---
+
+  // --- BAGIAN 5: ANIMASI GSAP & SCROLLTRIGGER (VERSI BARU) ---
   function setupGsapAnimations() {
-      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-      // Fungsi untuk animasi smooth scroll
-      const navLinks = document.querySelectorAll('.navbar a[href^="#"]');
-      navLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
-              e.preventDefault();
-              const targetId = this.getAttribute('href');
-              const targetElement = document.querySelector(targetId);
-              if (targetElement) {
-                  gsap.to(window, {
-                      duration: 1.5,
-                      scrollTo: {
-                          y: targetElement,
-                          offsetY: 20 // Offset agar tidak terlalu mepet
-                      },
-                      ease: "power3.inOut"
-                  });
-              }
-          });
+    // Fungsi untuk animasi smooth scroll (tetap sama)
+    document.querySelectorAll('.navbar a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        gsap.to(window, {
+          duration: 2,
+          scrollTo: {
+            y: this.getAttribute("href"),
+            offsetY: 50,
+          },
+          ease: "power3.inOut",
+        });
       });
+    });
 
-      // Animasi default untuk elemen teks umum
-      const textElements = gsap.utils.toArray('#quote p, #quote footer, #mempelai h2, #mempelai p, #acara h2, #acara p, #rsvp h2, #rsvp p, #gift h2, #gift p, #closing h2, #closing p, #closing h1');
-      textElements.forEach(el => {
-          gsap.from(el, {
-              opacity: 0,
-              y: 40,
-              duration: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                  trigger: el,
-                  start: 'top 90%',
-                  toggleActions: 'play none none none',
-              }
-          });
-      });
-
-      // Animasi khusus untuk #quote
-      gsap.from("#quote .bi-quote", {
-          scale: 0,
-          rotation: 360,
-          duration: 1.5,
-          ease: "elastic.out(1, 0.5)",
-          scrollTrigger: "#quote"
-      });
-
-      // Animasi khusus untuk #mempelai
-      gsap.from(".mempelai-pria", { xPercent: -50, opacity: 0, duration: 1, ease: "power2.out", scrollTrigger: { trigger: ".mempelai-pria", start: "top 80%" } });
-      gsap.from(".mempelai-wanita", { xPercent: 50, opacity: 0, duration: 1, ease: "power2.out", scrollTrigger: { trigger: ".mempelai-wanita", start: "top 80%" } });
-      gsap.from("#mempelai .wayang-photo", {
-          scale: 0.5,
-          duration: 1.5,
-          ease: "elastic.out(1, 0.75)",
-          stagger: 0.5,
-          scrollTrigger: { trigger: "#mempelai .wayang-photo", start: "top 80%" }
-      });
-      gsap.from("#mempelai .d-none.d-md-block span", {
-          scale: 0,
-          duration: 1,
-          ease: "back.out(1.7)",
-          scrollTrigger: { trigger: "#mempelai .d-none.d-md-block span", start: "top 80%" }
-      });
-
-      // Animasi untuk kartu #acara
-      gsap.from("#acara .card", {
+    // Helper function untuk animasi teks
+    function animateText(selector, trigger) {
+      const element = document.querySelector(selector);
+      if (element) {
+        const text = new SplitType(element, { types: "words, chars" });
+        gsap.from(text.chars, {
+          opacity: 0,
+          y: 20,
           scale: 0.8,
-          opacity: 0,
-          duration: 1,
+          duration: 2,
+          stagger: 0.03,
           ease: "back.out(1.7)",
-          scrollTrigger: { trigger: "#acara .card", start: "top 80%" }
-      });
-
-      // Animasi untuk countdown
-      gsap.from(".timer-box", {
-          y: 100,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: { trigger: ".timer-box", start: "top 90%" }
-      });
-
-      // Animasi untuk #gift cards
-      gsap.from("#gift .gift-card", {
-          y: 100,
-          opacity: 0,
-          duration: 1,
-          stagger: 0.3,
-          ease: "power2.out",
           scrollTrigger: {
-              trigger: "#gift .gift-card",
-              start: "top 85%"
-          }
+            trigger: trigger || selector,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }
+
+    // Helper function untuk animasi fade-in umum
+    function animateFadeIn(selector, options = {}) {
+      gsap.from(selector, {
+        opacity: 0,
+        y: options.y || 50,
+        scale: options.scale || 1,
+        duration: options.duration || 1.2,
+        ease: options.ease || "power3.out",
+        stagger: options.stagger || 0,
+        scrollTrigger: {
+          trigger: options.trigger || selector,
+          start: options.start || "top 85%",
+          toggleActions: "play none none none",
+        },
       });
-      
-      // Animasi untuk #closing
-      gsap.from("#closing h2", {
-          scale: 0.5,
-          duration: 1,
-          ease: "back.out(1.7)",
-          scrollTrigger: "#closing"
+    }
+
+    // 1. Animasi Pembuka (saat konten muncul)
+    const openingTl = gsap.timeline({
+      defaults: { duration: 1, ease: "power3.out" },
+    });
+    openingTl
+      .from("#quote .bi-quote", {
+        scale: 0,
+        rotation: -180,
+        duration: 2,
+        ease: "elastic.out(1, 0.5)",
+      })
+      .from("#quote blockquote p", { y: 50, opacity: 0 }, "-=1.2")
+      .from("#quote blockquote footer", { y: 30, opacity: 0 }, "-=0.8");
+
+    // 2. Animasi Section #mempelai
+    animateText("#mempelai h2", "#mempelai");
+    animateFadeIn("#mempelai > .container > p", {
+      trigger: "#mempelai",
+      start: "top 80%",
+    });
+
+    const coupleTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".mempelai-pria",
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    coupleTl
+      .from(".mempelai-pria .wayang-photo", {
+        x: -100,
+        opacity: 0,
+        duration: 2,
+        ease: "power3.out",
+      })
+      .from(".mempelai-pria h3", { x: -50, opacity: 0 }, "-=0.7")
+      .from(".mempelai-pria a", { y: 20, opacity: 0 }, "-=0.7")
+      .from(".mempelai-pria p", { y: 20, opacity: 0, stagger: 0.2 }, "-=0.5");
+
+    const coupleTl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".mempelai-wanita",
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    coupleTl2
+      .from(".mempelai-wanita .wayang-photo", {
+        x: 100,
+        opacity: 0,
+        duration: 2,
+        ease: "power3.out",
+      })
+      .from(".mempelai-wanita h3", { x: 50, opacity: 0 }, "-=0.7")
+      .from(".mempelai-wanita a", { y: 20, opacity: 0 }, "-=0.7")
+      .from(".mempelai-wanita p", { y: 20, opacity: 0, stagger: 0.2 }, "-=0.5");
+
+    gsap.from("#mempelai .d-none.d-md-block span", {
+      scale: 0,
+      rotate: -360,
+      duration: 2,
+      ease: "elastic.out(1, 0.5)",
+      scrollTrigger: {
+        trigger: "#mempelai .d-none.d-md-block span",
+        start: "top 80%",
+      },
+    });
+
+    // 3. Animasi Section #acara
+    animateText("#acara h2", "#acara");
+    animateFadeIn("#acara .lead", { trigger: "#acara", start: "top 75%" });
+    gsap.from("#acara .card", {
+      scale: 0.7,
+      opacity: 0,
+      rotationZ: -15,
+      duration: 2,
+      ease: "back.out(1.7)",
+      scrollTrigger: { trigger: "#acara .card", start: "top 80%" },
+    });
+
+    // 4. Animasi Section #countdown
+    animateText("#countdown h2", "#countdown");
+    gsap.from(".timer-box", {
+      y: 100,
+      opacity: 0,
+      duration: 1.5,
+      stagger: {
+        amount: 0.5,
+        from: "center",
+      },
+      ease: "back.out(1.7)",
+      scrollTrigger: { trigger: ".timer-box", start: "top 90%" },
+    });
+
+    // 5. Animasi Section #rsvp
+    animateText("#rsvp h2", "#rsvp");
+    animateFadeIn("#rsvp .lead", { trigger: "#rsvp", start: "top 75%" });
+    animateFadeIn("#rsvp .btn-jawa", {
+      trigger: "#rsvp .btn-jawa",
+      start: "top 85%",
+      scale: 0.8,
+      ease: "back.out(1.7)",
+    });
+    animateFadeIn("#wish-wall", {
+      trigger: "#wish-wall",
+      start: "top 85%",
+      y: 100,
+    });
+
+    // 6. Animasi Section #gift
+    animateText("#gift h2", "#gift");
+    animateFadeIn("#gift .lead", { trigger: "#gift", start: "top 75%" });
+    gsap.from("#gift .gift-card", {
+      y: 100,
+      opacity: 0,
+      duration: 2,
+      stagger: 0.3,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: "#gift .gift-card",
+        start: "top 85%",
+      },
+    });
+
+    // 7. Animasi Section #closing
+    const closingH2 = document.querySelector("#closing h2");
+    if (closingH2) {
+      const closingText = new SplitType(closingH2, { types: "chars" });
+      gsap.from(closingText.chars, {
+        opacity: 0,
+        scale: 0,
+        y: 50,
+        rotateX: 180,
+        duration: 2,
+        stagger: 0.05,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: "#closing h2",
+          start: "top 85%",
+        },
       });
+    }
+    animateFadeIn("#closing .lead", {
+      trigger: "#closing .lead",
+      start: "top 90%",
+    });
+    animateFadeIn("#closing .mt-5", {
+      trigger: "#closing .mt-5",
+      start: "top 90%",
+      y: 30,
+    });
+    animateFadeIn("#closing hr", {
+      trigger: "#closing hr",
+      start: "top 90%",
+      scale: 0,
+      duration: 2,
+    });
+    animateFadeIn("#closing .col-md-5", {
+      trigger: "#closing .col-md-5",
+      start: "top 95%",
+      stagger: 0.3,
+    });
   }
 }); // --- AKHIR DARI DOMContentLoaded ---
