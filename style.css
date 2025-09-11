@@ -23,6 +23,12 @@ body {
   font-family: "Lato", sans-serif; /* Menggunakan Lato sebagai default */
 }
 
+#acara p,
+#gift p,
+#closing p {
+  font-weight: 300;
+}
+
 .couple {
   background-image: url("img/bgbunga.png");
   background-size: cover;
@@ -38,6 +44,13 @@ body {
   box-shadow: inset 0 0 0 2000px rgba(10, 0, 155, 0.573);
   min-height: 100vh;
   height: auto;
+}
+
+#quote .blockquote {
+  border: 1px solid var(--golden-yellow);
+  padding: 0.5rem;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .acara {
@@ -86,10 +99,13 @@ body {
 }
 
 .gift-card * {
-  color: black;
-  text-shadow: none;
+  color: white;
+  text-shadow: var(--shadow);
 }
 
+.gift-card button {
+  border: 1px solid var(--golden-yellow);
+}
 .couple .text-sogan-brown,
 .gift .text-sogan-brown,
 .closing .text-sogan-brown,
@@ -109,6 +125,7 @@ body {
   background-position: center;
   box-shadow: inset 0 0 0 2000px rgba(10, 0, 155, 0.573); /* Efek overlay gelap */
   text-shadow: var(--shadow);
+  padding-top: 15rem;
 }
 .wayang {
   height: 20rem;
@@ -180,13 +197,11 @@ body {
 }
 
 .wayang-photo {
-  max-height: 350px;
-  width: auto;
   filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
 
   /* Properti baru untuk bingkai emas */
   background-color: white; /* Memberi 'alas' putih di belakang gambar wayang */
-  padding: 10px; /* Jarak antara foto dan bingkai */
+  padding: 4px; /* Jarak antara foto dan bingkai */
   border: 4px solid var(--golden-yellow); /* Garis bingkai emas */
   border-radius: 50rem; /* Membuat sudut bingkai lebih lembut */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan halus di luar bingkai */
@@ -276,11 +291,11 @@ body {
 }
 /* -- KARTU HADIAH (GIFT CARD) -- */
 .gift-card {
-  background-color: #fff;
+  background-color: transparent;
   border-radius: 15px;
   padding: 30px;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-  border: 1px solid #eee;
+  box-shadow: none;
+  border: 1px solid var(--golden-yellow);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -348,8 +363,8 @@ body {
   position: fixed;
   bottom: 85px; /* Adjusted to be above the bottom navbar */
   right: 25px;
-  width: 32px;
-  height: 32px;
+  width: 35px;
+  height: 35px;
   background-color: var(--sogan-brown);
   color: var(--golden-yellow);
   border-radius: 50%;
@@ -419,6 +434,20 @@ body {
   html {
     font-size: 70%;
   }
+  .acara {
+    min-height: auto;
+    padding: 10vh 0;
+  }
+
+  .mempelai-pria,
+  .mempelai-wanita {
+    margin-top: 2rem;
+  }
+
+  .mempelai-pria h3,
+  .mempelai-wanita h3 {
+    font-size: 2rem;
+  }
 }
 
 /* -- NAVBAR -- */
@@ -471,42 +500,36 @@ body {
 
 @media (max-width: 450px) {
   .wayang-photo {
-    max-height: 200px; /* Further reduce for small phones */
+    max-height: 220px; /* Further reduce for small phones */
   }
 
   h1.display-1,
   #cover h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
 
   h2.display-5 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .timer-box {
-    width: 70px; /* Shrink countdown boxes */
-    padding: 0.5rem;
+    width: 75px; /* Shrink countdown boxes */
+    padding: 0.75rem 0.5rem;
   }
 
   .timer-box span {
-    font-size: 2rem;
-  }
-  .gift-card {
-    background-color: #fff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-    border: 1px solid #eee;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    font-size: 2.2rem;
   }
 
-  .gift-logo {
-    max-height: 40px;
-    width: auto;
-    object-fit: contain;
+  .gift-card {
+    padding: 15px;
+  }
+
+  .acara .card {
+    /* Pastikan kartu tidak terlalu lebar di layar sangat kecil */
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -534,4 +557,5 @@ body {
 
 #cover > div {
   animation: zoomIn 1.5s ease-out;
+  margin-top: 15rem; /* Menambahkan jarak atas untuk menurunkan teks */
 }

@@ -8,6 +8,18 @@ const scriptURL =
 
 // Menjalankan semua kode setelah halaman HTML selesai dimuat
 document.addEventListener("DOMContentLoaded", function () {
+  // --- LOGIKA NAMA TAMU DARI URL ---
+  const urlParams = new URLSearchParams(window.location.search);
+  const guestName = urlParams.get('to');
+  const guestContainer = document.getElementById('guest-container');
+  const guestNameElement = document.getElementById('guest-name');
+
+  if (guestName && guestNameElement && guestContainer) {
+    const formattedGuestName = guestName.replace(/\+/g, ' ').trim();
+    guestNameElement.textContent = formattedGuestName;
+    guestContainer.style.display = 'block';
+  }
+
   // --- BAGIAN 1: DEKLARASI SEMUA ELEMEN ---
   const cover = document.getElementById("cover");
   const content = document.getElementById("content");
@@ -346,19 +358,18 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // 1. Animasi Pembuka (saat konten muncul)
-    const openingTl = gsap.timeline({
-      defaults: { duration: 1, ease: "power3.out" },
+    // 1. Animasi Section #quote (saat di-scroll)
+    gsap.from("#quote .blockquote", {
+      scale: 0.8,
+      opacity: 0,
+      duration: 1.5,
+      ease: "back.out(1.7)",
+      scrollTrigger: {
+        trigger: "#quote .blockquote",
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
     });
-    openingTl
-      .from("#quote .bi-quote", {
-        scale: 0,
-        rotation: -180,
-        duration: 2,
-        ease: "elastic.out(1, 0.5)",
-      })
-      .from("#quote blockquote p", { y: 50, opacity: 0 }, "-=1.2")
-      .from("#quote blockquote footer", { y: 30, opacity: 0 }, "-=0.8");
 
     // 2. Animasi Section #mempelai
     animateText("#mempelai h2", "#mempelai");
@@ -369,41 +380,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const coupleTl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".mempelai-pria",
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    });
-
-    coupleTl
-      .from(".mempelai-pria .wayang-photo", {
-        x: -100,
-        opacity: 0,
-        duration: 2,
-        ease: "power3.out",
-      })
-      .from(".mempelai-pria h3", { x: -50, opacity: 0 }, "-=0.7")
-      .from(".mempelai-pria a", { y: 20, opacity: 0 }, "-=0.7")
-      .from(".mempelai-pria p", { y: 20, opacity: 0, stagger: 0.2 }, "-=0.5");
-
-    const coupleTl2 = gsap.timeline({
-      scrollTrigger: {
         trigger: ".mempelai-wanita",
         start: "top 80%",
         toggleActions: "play none none none",
       },
     });
 
-    coupleTl2
+    coupleTl
       .from(".mempelai-wanita .wayang-photo", {
-        x: 100,
+        x: -100,
         opacity: 0,
-        duration: 2,
+        duration: 1.5,
         ease: "power3.out",
       })
-      .from(".mempelai-wanita h3", { x: 50, opacity: 0 }, "-=0.7")
-      .from(".mempelai-wanita a", { y: 20, opacity: 0 }, "-=0.7")
-      .from(".mempelai-wanita p", { y: 20, opacity: 0, stagger: 0.2 }, "-=0.5");
+      .from(".mempelai-wanita .col-7", { x: -50, opacity: 0, duration: 1 }, "-=1");
+
+    const coupleTl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".mempelai-pria",
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    coupleTl2
+      .from(".mempelai-pria .wayang-photo", {
+        x: 100,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out",
+      })
+      .from(".mempelai-pria .col-7", { x: 50, opacity: 0, duration: 1 }, "-=1");
 
     gsap.from("#mempelai .d-none.d-md-block span", {
       scale: 0,
@@ -461,14 +468,15 @@ document.addEventListener("DOMContentLoaded", function () {
     animateText("#gift h2", "#gift");
     animateFadeIn("#gift .lead", { trigger: "#gift", start: "top 75%" });
     gsap.from("#gift .gift-card", {
-      y: 100,
+      scale: 0.8,
       opacity: 0,
-      duration: 2,
+      duration: 1.5,
       stagger: 0.3,
-      ease: "power2.out",
+      ease: "back.out(1.7)",
       scrollTrigger: {
         trigger: "#gift .gift-card",
         start: "top 85%",
+        toggleActions: "play none none none",
       },
     });
 
