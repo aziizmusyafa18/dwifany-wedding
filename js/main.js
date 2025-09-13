@@ -10,14 +10,14 @@ const scriptURL =
 document.addEventListener("DOMContentLoaded", function () {
   // --- LOGIKA NAMA TAMU DARI URL ---
   const urlParams = new URLSearchParams(window.location.search);
-  const guestName = urlParams.get('to');
-  const guestContainer = document.getElementById('guest-container');
-  const guestNameElement = document.getElementById('guest-name');
+  const guestName = urlParams.get("to");
+  const guestContainer = document.getElementById("guest-container");
+  const guestNameElement = document.getElementById("guest-name");
 
   if (guestName && guestNameElement && guestContainer) {
-    const formattedGuestName = guestName.replace(/\+/g, ' ').trim();
+    const formattedGuestName = guestName.replace(/\+/g, " ").trim();
     guestNameElement.textContent = formattedGuestName;
-    guestContainer.style.display = 'block';
+    guestContainer.style.display = "block";
   }
 
   // --- BAGIAN 1: DEKLARASI SEMUA ELEMEN ---
@@ -310,12 +310,12 @@ document.addEventListener("DOMContentLoaded", function () {
       anchor.addEventListener("click", function (e) {
         e.preventDefault();
         gsap.to(window, {
-          duration: 2,
+          duration: 3,
           scrollTo: {
             y: this.getAttribute("href"),
             offsetY: 50,
           },
-          ease: "power3.inOut",
+          ease: "power5.inOut",
         });
       });
     });
@@ -359,17 +359,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 1. Animasi Section #quote (saat di-scroll)
-    gsap.from("#quote .blockquote", {
-      scale: 0.8,
-      opacity: 0,
-      duration: 1.5,
-      ease: "back.out(1.7)",
-      scrollTrigger: {
-        trigger: "#quote .blockquote",
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
+    const quoteCard = document.querySelector("#quote .card-section");
+    const quoteTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: quoteCard,
+            start: "top 85%",
+            toggleActions: "play none none none",
+        }
     });
+
+    quoteTl.from(quoteCard, {
+        opacity: 0,
+        y: 50,
+        duration: 1.5,
+        ease: "power3.out",
+    }).add(() => {
+        quoteCard.classList.add("is-visible");
+    });
+
+    // Also animate the children
+    quoteTl.from("#quote .card-section > *", {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power3.out",
+    }, "-=1.2"); // Overlap with the card animation
 
     // 2. Animasi Section #mempelai
     animateText("#mempelai h2", "#mempelai");
@@ -393,7 +408,11 @@ document.addEventListener("DOMContentLoaded", function () {
         duration: 1.5,
         ease: "power3.out",
       })
-      .from(".mempelai-wanita .col-7", { x: -50, opacity: 0, duration: 1 }, "-=1");
+      .from(
+        ".mempelai-wanita .col-7",
+        { x: -50, opacity: 0, duration: 1 },
+        "-=1"
+      );
 
     const coupleTl2 = gsap.timeline({
       scrollTrigger: {

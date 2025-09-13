@@ -21,68 +21,51 @@ html {
 
 body {
   font-family: "Lato", sans-serif; /* Menggunakan Lato sebagai default */
+  background-image: url("img/bgbunga.png");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: inset 0 0 0 2000px rgba(17, 0, 255, 0.329);
+}
+
+section {
+  padding: 3rem 0;
+  position: relative;
+}
+.quote h1 {
+  font-family: "Great Vibes", cursive;
+  color: var(--golden-yellow);
+  font-size: 4rem;
+}
+.quote .tgl {
+  font-family: "Great Vibes", cursive;
+  color: var(--golden-yellow);
+  font-size: 2rem;
+  text-shadow: var(--shadow);
+}
+.card-section {
+  background-color: rgba(0, 0, 128, 0.8);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: white;
 }
 
 #acara p,
 #gift p,
-#closing p {
+#closing p,
+#mempelai p {
   font-weight: 300;
 }
 
-.couple {
-  background-image: url("img/bgbunga.png");
-  background-size: cover;
-  background-position: center;
-  box-shadow: inset 0 0 0 2000px rgba(10, 0, 155, 0.573); /* Efek overlay gelap */
-}
-.gift,
-.closing,
-.quote {
-  background-image: url("img/bgbunga.png");
-  background-size: cover;
-  background-position: center;
-  box-shadow: inset 0 0 0 2000px rgba(10, 0, 155, 0.573);
-  min-height: 100vh;
-  height: auto;
-}
-
-#quote .blockquote {
-  border: 1px solid var(--golden-yellow);
-  padding: 0.5rem;
-  border-radius: 15px;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.acara {
-  background-image: url("img/bgbunga.png");
-  background-size: cover;
-  background-position: center;
-  box-shadow: inset 0 0 0 2000px rgba(10, 0, 155, 0.573); /* Efek overlay gelap */
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-.quote,
-.couple,
-.gift,
-.closing,
-.acara {
-  color: #fff;
-  text-shadow: var(--shadow);
-}
-
-.couple h2,
-.acara h2,
-.countdown h2,
-.rsvp h2,
-.gift h2 {
+.card-section h2 {
   color: var(--golden-yellow);
   font-family: "Cormorant Garamond", serif;
   font-size: x-large !important;
 }
 
-/* Perbaikan untuk kartu di section acara & gift */
 .acara .card-body,
 .gift .gift-card {
   color: black;
@@ -113,10 +96,6 @@ body {
   color: #fff !important;
 }
 
-.closing {
-  align-items: center;
-  position: relative;
-}
 /* -- HALAMAN SAMPUL (COVER) -- */
 #cover {
   height: 100vh; /* Mengisi seluruh tinggi layar */
@@ -200,7 +179,7 @@ body {
   filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.2));
 
   /* Properti baru untuk bingkai emas */
-  background-color: white; /* Memberi 'alas' putih di belakang gambar wayang */
+  background-color: white; /* Memberi \'alas\' putih di belakang gambar wayang */
   padding: 4px; /* Jarak antara foto dan bingkai */
   border: 4px solid var(--golden-yellow); /* Garis bingkai emas */
   border-radius: 50rem; /* Membuat sudut bingkai lebih lembut */
@@ -278,8 +257,8 @@ body {
 .wish-card:hover .btn-delete {
   opacity: 1; /* Muncul jelas saat card di-hover */
 }
-.couple a {
-  padding: 5px;
+#mempelai a {
+  padding: 5px 10px;
   font-size: 12px;
   width: auto;
   background-color: var(--golden-yellow);
@@ -288,6 +267,7 @@ body {
   margin-top: -1rem;
   text-decoration: none;
   text-shadow: none;
+  display: inline-block;
 }
 /* -- KARTU HADIAH (GIFT CARD) -- */
 .gift-card {
@@ -326,14 +306,6 @@ body {
   color: var(--golden-yellow);
 }
 /* -- COUNTDOWN TIMER -- */
-.countdown {
-  height: 50vh; /* Mengisi seluruh tinggi layar */
-  background-image: url("img/batik2.png");
-  background-size: cover;
-  background-position: center;
-  box-shadow: inset 0 0 0 2000px rgba(10, 0, 151, 0.639); /* Efek overlay gelap */
-  text-shadow: var(--shadow);
-}
 .timer-box {
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--golden-yellow);
@@ -405,13 +377,13 @@ body {
 }
 
 .wayang-animated {
-  /* Menerapkan animasi bernama 'sway' */
+  /* Menerapkan animasi bernama \'sway\' */
   animation: sway 5s ease-in-out infinite;
   width: 19rem;
   height: 20rem;
 }
 
-/* Mendefinisikan gerakan animasi 'sway' */
+/* Mendefinisikan gerakan animasi \'sway\' */
 @keyframes sway {
   0% {
     transform: rotate(-2deg);
@@ -558,4 +530,11 @@ body {
 #cover > div {
   animation: zoomIn 1.5s ease-out;
   margin-top: 15rem; /* Menambahkan jarak atas untuk menurunkan teks */
+}
+
+.sway-animation {
+  transform-origin: top center;
+}
+.sway-animation.is-visible {
+  animation: sway 7s ease-in-out infinite;
 }
