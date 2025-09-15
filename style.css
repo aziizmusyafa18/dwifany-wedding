@@ -305,6 +305,11 @@ section {
 .site-footer a.footer-hashtag:hover {
   color: var(--golden-yellow);
 }
+
+.closing .card-section img {
+  align-items: center;
+  height: 250px;
+}
 /* -- COUNTDOWN TIMER -- */
 .timer-box {
   background-color: rgba(255, 255, 255, 0.1);

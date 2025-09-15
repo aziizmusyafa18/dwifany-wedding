@@ -361,30 +361,36 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1. Animasi Section #quote (saat di-scroll)
     const quoteCard = document.querySelector("#quote .card-section");
     const quoteTl = gsap.timeline({
-        scrollTrigger: {
-            trigger: quoteCard,
-            start: "top 85%",
-            toggleActions: "play none none none",
-        }
+      scrollTrigger: {
+        trigger: quoteCard,
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
     });
 
-    quoteTl.from(quoteCard, {
+    quoteTl
+      .from(quoteCard, {
         opacity: 0,
         y: 50,
         duration: 1.5,
         ease: "power3.out",
-    }).add(() => {
+      })
+      .add(() => {
         quoteCard.classList.add("is-visible");
-    });
+      });
 
     // Also animate the children
-    quoteTl.from("#quote .card-section > *", {
+    quoteTl.from(
+      "#quote .card-section > *",
+      {
         opacity: 0,
         y: 20,
         duration: 1,
         stagger: 0.1,
         ease: "power3.out",
-    }, "-=1.2"); // Overlap with the card animation
+      },
+      "-=1.2"
+    ); // Overlap with the card animation
 
     // 2. Animasi Section #mempelai
     animateText("#mempelai h2", "#mempelai");
