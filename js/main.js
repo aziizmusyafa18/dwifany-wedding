@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const newWishHTML = `
             <div class=\"wish-card\" id=\"row-${rowNumber}\">
-                <button class=\"btn-delete\" data-row=\"${rowNumber}\" title=\"Hapus ucapan ini\" >&times;</button>
+                <button class=\"btn-delete\" data-row=\" ${rowNumber}\" title=\"Hapus ucapan ini\" >&times;</button>
                 <div class=\"card-name\">${nama} ${statusBadge}</div>
                 <p class=\"card-text\">\"${ucapan}\"</p>
             </div>`;
@@ -542,6 +542,69 @@ document.addEventListener("DOMContentLoaded", function () {
       trigger: "#closing .col-md-5",
       start: "top 95%",
       stagger: 0.3,
+    });
+  }
+  // --- LOGIKA UNTUK SIMPAN KE KALENDER (VERSI DROPDOWN) ---
+  const googleCalendarLink = document.getElementById('google-calendar-link');
+  const icsDownloadLink = document.getElementById('ics-download-link');
+
+  // --- Detail Acara (didefinisikan sekali) ---
+  const eventDetails = {
+      name: "Pernikahan Dwi & Fany",
+      details: "Acara Akad Nikah & Walimatul Ursy Dwi Apriyanto, S.Pd & Midiafany Putri Melati, S.Pd. Kehadiran Anda adalah kebahagiaan bagi kami.",
+      location: "Mushola Al - Ikhlas, Putatsari Kec. Grobogan Kabupaten Grobogan Jawa Tengah",
+      
+      // Waktu dalam format untuk Google (UTC/Zulu Time)
+      startUTC: '20251029T010000Z', // 08:00 WIB adalah 01:00 UTC
+      endUTC: '20251029T070000Z',   // 14:00 WIB adalah 07:00 UTC
+
+      // Waktu dalam format untuk ICS (dengan Timezone)
+      startTimezone: '20251029T080000',
+      endTimezone: '20251029T140000',
+      timezone: 'Asia/Jakarta'
+  };
+
+  // 1. Logika untuk Google Calendar
+  if (googleCalendarLink) {
+    googleCalendarLink.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const googleUrl = new URL('https://www.google.com/calendar/render');
+      googleUrl.searchParams.append('action', 'TEMPLATE');
+      googleUrl.searchParams.append('text', eventDetails.name);
+      googleUrl.searchParams.append('dates', `${eventDetails.startUTC}/${eventDetails.endUTC}`);
+      googleUrl.searchParams.append('details', eventDetails.details);
+      googleUrl.searchParams.append('location', eventDetails.location);
+
+      window.open(googleUrl.toString(), '_blank');
+    });
+  }
+
+  // 2. Logika untuk unduh file .ics
+  if (icsDownloadLink) {
+    icsDownloadLink.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const icsContent = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "BEGIN:VEVENT",
+        "SUMMARY:" + eventDetails.name,
+        "DTSTART;TZID=" + eventDetails.timezone + ":" + eventDetails.startTimezone,
+        "DTEND;TZID=" + eventDetails.timezone + ":" + eventDetails.endTimezone,
+        "LOCATION:" + eventDetails.location,
+        "DESCRIPTION:" + eventDetails.details,
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'pernikahan-dwi-fany.ics';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     });
   }
 }); // --- AKHIR DARI DOMContentLoaded ---
