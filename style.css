@@ -21,12 +21,12 @@ html {
 
 body {
   font-family: "Lato", sans-serif; /* Menggunakan Lato sebagai default */
-  background-image: url("img/bgbunga.png");
+  background-image: url("img/bgbunga1.png");
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  box-shadow: inset 0 0 0 2000px rgba(17, 0, 255, 0.329);
+  box-shadow: inset 0 0 0 2000px rgba(85, 72, 255, 0.434);
 }
 
 section {
@@ -47,6 +47,7 @@ section {
 .card-section {
   background-color: rgba(0, 0, 128, 0.8);
   border-radius: 15px;
+  border: 1px solid var(--golden-yellow);
   padding: 2rem;
   margin-bottom: 2rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
