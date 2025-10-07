@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const newWishHTML = `
             <div class=\"wish-card\" id=\"row-${rowNumber}\">
-                <button class=\"btn-delete\" data-row=\" ${rowNumber}\" title=\"Hapus ucapan ini\" >&times;</button>
+                <button class="btn-delete" data-row="${rowNumber}" title="Hapus ucapan ini" >&times;</button>
                 <div class=\"card-name\">${nama} ${statusBadge}</div>
                 <p class=\"card-text\">\"${ucapan}\"</p>
             </div>`;
