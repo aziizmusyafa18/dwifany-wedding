@@ -8,7 +8,8 @@ const scriptURL =
 
 // Menjalankan semua kode setelah halaman HTML selesai dimuat
 document.addEventListener("DOMContentLoaded", function () {
-  // --- LOGIKA NAMA TAMU DARI URL ---
+  // --- LOGIKA NAMA TAMU DARI URL (DINONAKTIFKAN SEMENTARA UNTUK DEBUG) ---
+  /*
   const urlParams = new URLSearchParams(window.location.search);
   const guestName = urlParams.get("to");
   const guestContainer = document.getElementById("guest-container");
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     guestNameElement.textContent = formattedGuestName;
     guestContainer.style.display = "block";
   }
+  */
 
   // --- BAGIAN 1: DEKLARASI SEMUA ELEMEN ---
   const cover = document.getElementById("cover");
