@@ -8,9 +8,8 @@ const scriptURL =
 
 // Menjalankan semua kode setelah halaman HTML selesai dimuat
 document.addEventListener("DOMContentLoaded", function () {
-  // --- LOGIKA NAMA TAMU DARI URL ---
-  const urlParams = new URLSearchParams(window.location.search);
-  const guestName = urlParams.get("to");
+  // --- LOGIKA NAMA TAMU DARI URL (MENGGUNAKAN HASH '#') ---
+  const guestName = decodeURIComponent(window.location.hash.substring(1)).replace(/\+/g, ' ').trim();
   const guestContainer = document.getElementById("guest-container");
   const guestNameElement = document.getElementById("guest-name");
 
